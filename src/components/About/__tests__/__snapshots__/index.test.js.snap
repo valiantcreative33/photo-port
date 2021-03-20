@@ -1,14 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
+exports[`About component renders matches snapshot DOM node structure 1`] = `
 <DocumentFragment>
   <section
     class="my-5"
+    data-testid="about"
   >
     <h1
       id="about"
     >
-      Who am I?
+      Who Am I?
     </h1>
     <img
       alt="cover"
