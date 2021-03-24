@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import photo from '../../assets/small/commercial/0.jpg';
+import Modal from '../Modal';
 
 function PhotoList({ category }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [photos] = useState([
         {
           name: 'Grocery aisle',
@@ -103,15 +105,23 @@ function PhotoList({ category }) {
     // filters down the photos to match the current category selected, which is chosen from the destructured prop in the PhotoList function declaration. 
     const currentPhotos = photos.filter((photo) => photo.category === category);
 
+    const [currentPhoto, setCurrentPhoto] = useState();
+    const toggleModal = (image, i) => {
+      setCurrentPhoto({...image, index: i})
+      setIsModalOpen(!isModalOpen);
+    }
+
     return (
         <div>
+          {isModalOpen && <Modal currentPhoto={currentPhoto} onClose={toggleModal}/>}
           <div className='flex-row'>
               {currentPhotos.map((image, i) => (
                   <img
-                //   must add '.default' at the end of a require otherwise images will be [objectModule]
+                  // must add '.default' at the end of a require otherwise images will be [objectModule]
                     src={require(`../../assets/small/${category}/${i}.jpg`).default}
                     alt={image.name}
                     className='img-thumbnail mx-1'
+                    onClick={() => toggleModal(image, i)}
                     key={image.name}
                 />
               ))}
